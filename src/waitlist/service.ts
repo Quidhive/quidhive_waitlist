@@ -10,10 +10,10 @@ export class WaitlistService {
 
   static JoinWaitlist = async (payload: { email: string }) => {
     const newWaitlist = waitlistRepo.create({
-      email: payload.email
+      email: payload.email.toLowerCase()
     })
     await waitlistRepo.save(newWaitlist)
-    sendEmail({ to: payload.email, htmlPath: "../email_templates/waitlist.html", subject: "You are on the waitlist", html: {} })
+    sendEmail({ to: payload.email.toLowerCase(), htmlPath: "../email_templates/waitlist.html", subject: "You are on the waitlist", html: {} })
     return "You have been added to waitlist"
   }
 }
